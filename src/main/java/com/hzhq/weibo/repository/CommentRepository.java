@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +26,8 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
      * @param pageable 分页
      * @return 分页评论
      */
-    @Query("select c.id,c.weiboId,c.userId,c.sendTime,c.content from Comment c order by c.sendTime")
-    Page<Comment> selectAllByUserId(Integer userId, Pageable pageable);
+    @Query("select c.id,c.weiboId,c.User.id,c.sendTime,c.content from Comment c where c.User.id=:userId order by c.sendTime")
+    Page<Comment> selectAllByUser(@Param("userId") Integer userId, Pageable pageable);
 
     /**
      * 所有评论

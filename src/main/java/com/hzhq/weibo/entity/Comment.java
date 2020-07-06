@@ -27,8 +27,11 @@ public class Comment {
     private Integer id;
     @Column(name = "w_id")
     private Integer weiboId;
-    @Column(name = "u_id")
-    private Integer userId;
+//    @Column(name = "u_id")
+//    private Integer userId;
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "u_id",referencedColumnName = "u_id")
+    private User User;
     @Column(name = "c_content")
     private String content;
     @Column(name = "c_time")

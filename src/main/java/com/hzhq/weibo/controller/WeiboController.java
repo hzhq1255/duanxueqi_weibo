@@ -1,12 +1,11 @@
 package com.hzhq.weibo.controller;
 
 import com.hzhq.weibo.service.WeiboService;
+import com.hzhq.weibo.util.PageUtil;
 import com.hzhq.weibo.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: hzhq1255
@@ -23,7 +22,28 @@ public class WeiboController {
     WeiboService weiboService;
 
     @RequestMapping(value = "/getAllWeibo",method = RequestMethod.GET)
-    Result getAllWeibo(){
-        return Result.success();
+    Result getAllWeibo(@RequestParam("currentPage") Integer currentPage,
+                       @RequestParam("pageSize") Integer pageSize){
+        if (currentPage == 0  || pageSize == 0 ){
+            return Result.error("无效参数");
+        }
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
+        }
+        return weiboService.getAllWeibo(PageRequest.of(currentPage-1,pageSize));
     }
+
+    @RequestMapping(value = "/getLikeWeibo",method = RequestMethod.GET)
+    Result getLikeWeibo(@RequestParam("userId") Integer userId,
+                        @RequestParam("currentPage") Integer currentPage,
+                        @RequestParam("pageSize") Integer pageSize){
+        if (currentPage == 0  || pageSize == 0 ){
+            return Result.error("无效参数");
+        }
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
+        }
+        return weiboService.getLikeWeibo(userId,PageRequest.of(currentPage-1,pageSize));
+    }
+
 }

@@ -29,6 +29,7 @@ public class Like {
     @Column(name = "r_id")
     private Integer replyId;
     private Integer status;
+    @Column(name = "like_type")
     private Integer likeType;
 
 

@@ -25,6 +25,8 @@ public class PageUtil extends HashMap<String,Object>{
     private Integer totalPages;
     private Object content;
 
+
+
     public static HashMap<String, Object> getPageData(Page<?> page){
         HashMap<String,Object> hashMap = new HashMap<>(5);
         hashMap.put("currentPage",page.getPageable().getPageNumber()+1);

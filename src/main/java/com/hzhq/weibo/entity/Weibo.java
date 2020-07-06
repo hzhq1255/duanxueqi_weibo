@@ -26,6 +26,8 @@ public class Weibo {
     @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "u_id",referencedColumnName = "u_id")
     private User user;
+//    @Column(name = "u_id")
+//    private Integer userId;
     @Column(name = "w_content")
     private String content;
     @Column(name = "w_source")
@@ -34,8 +36,11 @@ public class Weibo {
     private Timestamp sendTime;
     @Column(name = "tag")
     private String tag;
-//    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
-//    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
-//    private List<Comment> commentList;
+    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
+    private List<Comment> commentList;
+    @OneToMany(targetEntity = Like.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
+    private List<Like> likeList;
 
 }

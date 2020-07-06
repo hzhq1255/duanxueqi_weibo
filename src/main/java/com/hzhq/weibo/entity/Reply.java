@@ -25,12 +25,18 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "r_id")
     private Integer id;
-    @Column(name = "u_id")
-    private Integer fromUserId;
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "u_id",referencedColumnName = "u_id")
+    private User fromUser;
+//    @Column(name = "u_id")
+//    private Integer fromUserId;
     @Column(name = "c_id")
     private Integer commentId;
-    @Column(name = "to_u_id")
-    private Integer toUserId;
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "to_u_id",referencedColumnName = "u_id")
+    private User toUser;
+//    @Column(name = "to_u_id")
+//    private Integer toUser;
     @Column(name = "r_content")
     private String content;
     @Column(name = "r_time")
