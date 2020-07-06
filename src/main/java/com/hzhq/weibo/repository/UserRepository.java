@@ -29,6 +29,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
      */
     User findUserByName(String name);
 
+
     /**
      * 是否已存在
      * @param name name

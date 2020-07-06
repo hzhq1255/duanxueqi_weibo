@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +20,11 @@ public interface ReplyRepository extends JpaRepository<Reply,Integer> {
 
     /**
      * 所有评论
+     * @param commentId 评论id
      * @param pageable 分页
      * @return 分页评论
      */
-    Page<Reply> selectAll(Pageable pageable);
+    Page<Reply> findAllByCommentId(Integer commentId,Pageable pageable);
 
     /**
      * 删除

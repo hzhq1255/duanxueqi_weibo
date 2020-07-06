@@ -20,10 +20,11 @@ import java.util.List;
 public class Weibo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "w_id")
     private Integer id;
-    @Column(name = "u_id")
-    @OneToOne
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "u_id",referencedColumnName = "u_id")
     private User user;
     @Column(name = "w_content")
     private String content;
@@ -33,8 +34,8 @@ public class Weibo {
     private Timestamp sendTime;
     @Column(name = "tag")
     private String tag;
-    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
-    private List<Comment> commentList;
+//    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
+//    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
+//    private List<Comment> commentList;
 
 }

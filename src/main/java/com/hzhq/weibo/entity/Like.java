@@ -17,9 +17,10 @@ import javax.persistence.*;
 @JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 public class Like {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "u_id")
-    @OneToOne
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "u_id",referencedColumnName = "u_id")
     private User user;
     @Column(name = "w_id")
     private Integer weiboId;

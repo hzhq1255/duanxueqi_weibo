@@ -1,13 +1,13 @@
 package com.hzhq.weibo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -19,10 +19,13 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "u_id")
     private Integer id;
     @Column(name = "u_name")
@@ -37,7 +40,10 @@ public class User {
     @Column(name = "u_des")
     private String des;
     @Column(name = "u_reg_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp regTime;
     @Column(name = "u_birth")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp birth;
+
 }
