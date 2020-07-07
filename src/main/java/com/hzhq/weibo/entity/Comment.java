@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,9 +36,9 @@ public class Comment {
     @Column(name = "c_content")
     private String content;
     @Column(name = "c_time")
-    private Timestamp sendTime;
-    @OneToMany(targetEntity = Reply.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "c_id",referencedColumnName = "c_id")
-    private List<Reply> replyList;
+    private Date sendTime;
+//    @OneToMany(targetEntity = Reply.class,cascade = CascadeType.ALL)
+//    @JoinColumn(name = "c_id",referencedColumnName = "c_id")
+//    private List<Reply> replyList;
 
 }

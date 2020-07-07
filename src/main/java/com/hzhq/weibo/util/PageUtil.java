@@ -26,6 +26,9 @@ public class PageUtil extends HashMap<String,Object>{
     private Object content;
 
 
+    public boolean judgeParam(Integer currentPage,Integer pageSize){
+        return currentPage > 0 && pageSize > 0;
+    }
 
     public static HashMap<String, Object> getPageData(Page<?> page){
         HashMap<String,Object> hashMap = new HashMap<>(5);

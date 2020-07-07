@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Date;
 
 /**
  * @author: hzhq1255
@@ -31,11 +32,11 @@ public class Weibo {
     @Column(name = "w_content")
     private String content;
     @Column(name = "w_source")
-    private Integer sourceWeibo;
+    private Integer source;
     @Column(name = "w_time")
-    private Timestamp sendTime;
+    private Date sendTime;
     @Column(name = "tag")
-    private String tag;
+    private Integer tag;
     @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "w_id",referencedColumnName = "w_id")
     private List<Comment> commentList;

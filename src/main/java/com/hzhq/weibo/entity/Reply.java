@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author: hzhq1255
@@ -40,7 +41,7 @@ public class Reply {
     @Column(name = "r_content")
     private String content;
     @Column(name = "r_time")
-    private Timestamp sendTime;
+    private Date sendTime;
     @Column(name = "r_type")
     private Integer replyType;
 

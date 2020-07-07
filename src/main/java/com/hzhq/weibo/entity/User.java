@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author: hzhq1255
@@ -41,9 +42,9 @@ public class User {
     private String des;
     @Column(name = "u_reg_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp regTime;
+    private Date regTime;
     @Column(name = "u_birth")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp birth;
+    private Date birth;
 
 }
