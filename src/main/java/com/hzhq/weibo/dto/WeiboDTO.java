@@ -25,6 +25,7 @@ public class WeiboDTO{
     private Integer weiboId;
     private Integer userId;
     private String name;
+    private String pic;
     private Integer tag;
     private String content;
     private Integer isLiked;
@@ -34,17 +35,18 @@ public class WeiboDTO{
     private WeiboInfo source;
 
 
-    public WeiboDTO(Integer weiboId, Integer userId, String name, Integer tag, String content, Integer isLiked, Integer likeCount, Integer commentCount, Date sendTime,
-                    Integer source, Integer sourceUserId,String sourceName,Integer sourceTag,String sourceContent,Integer sourceLikeCount,Integer sourceCommentCount, Date sourceSendTime) {
+    public WeiboDTO(Integer weiboId, Integer userId, String name,String pic, Integer tag, String content, Integer isLiked, Integer likeCount, Integer commentCount, Date sendTime,
+                    Integer source, Integer sourceUserId,String sourceName,String sourcePic,Integer sourceTag,String sourceContent,Integer sourceLikeCount,Integer sourceCommentCount, Date sourceSendTime) {
         this.weiboId = weiboId;
         this.userId = userId;
         this.name = name;
+        this.pic = "".equals(pic) ? null : pic;
         this.tag = tag;
         this.content = content;
         this.isLiked = isLiked == null ? 0 : isLiked;
         this.likeCount = likeCount;
         this.commentCount = commentCount;
         this.sendTime =sendTime;
-        this.source = source == null ? null : new WeiboInfo(source,sourceUserId,sourceName,sourceContent,sourceTag,sourceLikeCount,sourceCommentCount,sendTime,null);
+        this.source = source == null ? null : new WeiboInfo(source,sourceUserId,sourceName,sourcePic,sourceContent,sourceTag,sourceLikeCount,sourceCommentCount,sendTime,null);
     }
 }

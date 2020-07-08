@@ -57,7 +57,6 @@ success error
 | currentPage |                  |      |
 | pageSize    |                  |      |
 
-无参 带评论 回复
 
 **返回**
 
@@ -70,6 +69,21 @@ success error
 | 参数        | 描述             |      |
 | ----------- | ---------------- | ---- |
 | userId      | 当前登录的用户id |      |
+| currentPage |                  |      |
+| pageSize    |                  |      |
+
+**返回**
+
+微博 信息 点赞数 评论数 当前用户是否喜欢
+
+### /getUserWeibo
+
+**method** GET
+
+| 参数        | 描述             |      |
+| ----------- | ---------------- | ---- |
+| loginId      | 当前登录的用户id |      |
+| userId      | 查看用户id |      |
 | currentPage |                  |      |
 | pageSize    |                  |      |
 

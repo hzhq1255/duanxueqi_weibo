@@ -22,7 +22,7 @@ public class UserService {
         User user = userRepository.findUserByName(name);
         try {
             if (user != null && user.getPwd().equals(pwd)   ){
-                return Result.success("登录成功");
+                return Result.success(user.getId());
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -47,6 +47,9 @@ public class UserService {
 
     public Result getUserInfo(Integer userId){
         User user = userRepository.findUserById(userId);
+        if ("".equals(user.getPic())){
+            user.setPic(null);
+        }
         if (user == null){
             return Result.error("查无此人");
         }

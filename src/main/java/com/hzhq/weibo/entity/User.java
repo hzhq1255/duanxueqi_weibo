@@ -18,10 +18,10 @@ import java.util.Date;
  * @desc:
  */
 @Data
-@Entity
-@Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "user")
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class User {
 
@@ -46,5 +46,6 @@ public class User {
     @Column(name = "u_birth")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date birth;
+
 
 }

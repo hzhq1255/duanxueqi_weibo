@@ -41,7 +41,7 @@ public class WeiboController {
     Result getMyWeibo(@RequestParam("userId") @NotNull Integer userId,
                         @RequestParam("currentPage") @NotNull Integer currentPage,
                         @RequestParam("pageSize") @NotNull Integer pageSize){
-        if (currentPage == 0  || pageSize == 0 ){
+        if (currentPage <= 0  || pageSize <= 0){
             return Result.error("无效参数");
         }
         if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
@@ -54,13 +54,27 @@ public class WeiboController {
     Result getLikeWeibo(@RequestParam("userId") @NotNull Integer userId,
                         @RequestParam("currentPage") @NotNull Integer currentPage,
                         @RequestParam("pageSize") @NotNull Integer pageSize){
-        if (currentPage == 0  || pageSize == 0 ){
+        if (currentPage <= 0  || pageSize <= 0){
             return Result.error("无效参数");
         }
         if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
             pageSize = PageUtil.DEFAULT_PAGE_SIZE;
         }
         return weiboService.getAllLikedWeiboByUser(userId,PageRequest.of(currentPage-1,pageSize));
+    }
+
+    @RequestMapping(value = "/getUserWeibo",method = RequestMethod.GET)
+    Result getUserWeibo(@RequestParam("loginId") @NotNull Integer loginId,
+                      @RequestParam("userId") @NotNull Integer userId,
+                      @RequestParam("currentPage") @NotNull Integer currentPage,
+                      @RequestParam("pageSize") @NotNull Integer pageSize){
+        if (currentPage <= 0  || pageSize <= 0){
+            return Result.error("无效参数");
+        }
+        if (pageSize < PageUtil.DEFAULT_PAGE_SIZE){
+            pageSize = PageUtil.DEFAULT_PAGE_SIZE;
+        }
+        return weiboService.getUserWeibo(loginId,userId,PageRequest.of(currentPage-1,pageSize));
     }
 
     @RequestMapping(value = "/sendWeibo",method = RequestMethod.POST)

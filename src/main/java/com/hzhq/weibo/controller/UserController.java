@@ -56,8 +56,13 @@ public class UserController {
         if (!pwd1.equals(pwd2)){
             return Result.error("两次输入密码不一致");
         }
+        if ("".equals(pic)){
+            pic = null;
+        }else if ("".equals(gender)){
+            gender = null;
+        }
         Timestamp regTime = new Timestamp((new Date()).getTime());
-        User user = new User(0,name,pwd1,pic,gender,des,regTime,birth);
+        User user = new User(null,name,pwd1,pic,gender,des,regTime,birth);
         return userService.reg(user);
     }
 

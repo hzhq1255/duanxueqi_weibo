@@ -45,6 +45,8 @@ public class WeiboInfo implements Serializable {
     private Integer userId;
     @Column(name = "u_name")
     private String name;
+    @Column(name = "u_pic")
+    private String pic;
     @Column(name = "w_content")
     private String content;
     @Column(name = "tag")

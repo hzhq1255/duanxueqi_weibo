@@ -47,6 +47,12 @@ public class WeiboService {
         return Result.success(data);
     }
 
+    public Result getUserWeibo(Integer loginId, Integer userId, Pageable pageable){
+        Page<WeiboDTO> weiboPage = weiboInfoRepository.selectAllWeiboByUserAndLoginUser(loginId, userId, pageable);
+        Object data = PageUtil.getPageData(weiboPage);
+        return Result.success(data);
+    }
+
     public Result sendWeibo(Weibo weibo){
         try {
             weiboRepository.save(weibo);
