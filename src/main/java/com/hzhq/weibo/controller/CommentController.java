@@ -2,11 +2,10 @@ package com.hzhq.weibo.controller;
 
 import com.hzhq.weibo.entity.Comment;
 import com.hzhq.weibo.entity.User;
-import com.hzhq.weibo.repository.CommentRepository;
 import com.hzhq.weibo.service.CommentService;
 import com.hzhq.weibo.util.PageUtil;
 import com.hzhq.weibo.util.Result;
-import com.sun.istack.NotNull;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;

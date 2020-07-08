@@ -4,7 +4,7 @@ import com.hzhq.weibo.entity.Like;
 import com.hzhq.weibo.entity.User;
 import com.hzhq.weibo.service.LikeService;
 import com.hzhq.weibo.util.Result;
-import com.sun.istack.NotNull;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
