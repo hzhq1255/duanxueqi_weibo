@@ -123,7 +123,7 @@ public interface WeiboInfoRepository extends JpaRepository<WeiboInfo,Integer> {
             "from WeiboInfo w " +
             "left join WeiboInfo s ON w.source = s.weiboId " +
             "left join Like l on w.weiboId = l.weiboId and l.user.id=:userId " +
-            "where w.userId=:userId and l.status = 1" +
+            "where l.user.id=:userId and l.status = 1" +
             "order by w.sendTime desc ")
     Page<WeiboDTO> selectAllLikedWeiboByUser(@Param("userId") Integer userId, Pageable pageable);
 

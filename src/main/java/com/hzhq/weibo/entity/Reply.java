@@ -26,14 +26,14 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "r_id")
     private Integer id;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
     @JoinColumn(name = "u_id",referencedColumnName = "u_id")
     private User fromUser;
 //    @Column(name = "u_id")
 //    private Integer fromUserId;
     @Column(name = "c_id")
     private Integer commentId;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
     @JoinColumn(name = "to_u_id",referencedColumnName = "u_id")
     private User toUser;
 //    @Column(name = "to_u_id")

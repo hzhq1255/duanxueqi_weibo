@@ -1,5 +1,6 @@
 package com.hzhq.weibo.repository;
 
+import com.hzhq.weibo.dto.CommentDTO;
 import com.hzhq.weibo.entity.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @mail: hzhq1255@163.com
  * @date: 2020/7/6 20:24
  * @desc:
+ *     private Integer id;
+ *     private Integer weiboId;
+ *     private Integer userId;
+ *     private String name;
+ *     private String content;
+ *     private Date sendTime;
+ *
  */
 @Repository
 public interface CommentRepository extends JpaRepository<Comment,Integer> {
@@ -37,11 +45,45 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
     @Query("select c from Comment c order by c.sendTime")
     Page<Comment> selectAll(Pageable pageable);
 
+
+    /**
+     * 微博评论
+     * @param weiboId 微博id
+     * @param pageable 分页
+     * @return page
+     */
+    @Query(" select new com.hzhq.weibo.dto.CommentDTO(" +
+            "c.id," +
+            "c.weiboId," +
+            "c.User.id," +
+            "c.User.name," +
+            "c.content," +
+            "c.sendTime" +
+            ") " +
+            "from Comment c " +
+            "where c.weiboId=:weiboId " +
+            "order by c.sendTime desc ")
+    Page<CommentDTO> selectAllCommentByWeiboId(@Param("weiboId") Integer weiboId,Pageable pageable);
+
+
+    @Query(" select new com.hzhq.weibo.dto.CommentDTO(" +
+            "c.id," +
+            "c.weiboId," +
+            "c.User.id," +
+            "c.User.name," +
+            "c.content," +
+            "c.sendTime" +
+            ") " +
+            "from Comment c " +
+            "where c.User.id=:userId  " +
+            "order by c.sendTime desc ")
+    Page<CommentDTO> selectAllCommentByUserId(@Param("userId") Integer userId,Pageable pageable);
+
     /**
      * 删除
      * @param id id
      */
     @Modifying
     @Transactional(rollbackFor=Exception.class)
-    void deleteCommentById(Integer id);
+    Integer deleteCommentById(Integer id);
 }

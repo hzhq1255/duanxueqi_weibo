@@ -19,7 +19,7 @@ public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
     @JoinColumn(name = "u_id",referencedColumnName = "u_id")
     private User user;
     @Column(name = "w_id")

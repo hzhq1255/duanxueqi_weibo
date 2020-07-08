@@ -24,7 +24,7 @@ public class Weibo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "w_id")
     private Integer id;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
     @JoinColumn(name = "u_id",referencedColumnName = "u_id")
     private User user;
 //    @Column(name = "u_id")
@@ -37,11 +37,11 @@ public class Weibo {
     private Date sendTime;
     @Column(name = "tag")
     private Integer tag;
-    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
-    private List<Comment> commentList;
-    @OneToMany(targetEntity = Like.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
-    private List<Like> likeList;
+//    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
+//    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
+//    private List<Comment> commentList;
+//    @OneToMany(targetEntity = Like.class,cascade = CascadeType.ALL)
+//    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
+//    private List<Like> likeList;
 
 }

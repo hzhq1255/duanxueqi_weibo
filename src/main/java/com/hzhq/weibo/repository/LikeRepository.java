@@ -18,50 +18,80 @@ public interface LikeRepository extends JpaRepository<Like,Integer> {
 
     /**
      * 微博点赞
+     * @param user user
      * @param weiboId weiboId
      * @return 微博点赞树
      */
-    Integer countDistinctByWeiboId(Integer weiboId);
+    Integer countDistinctByUserAndWeiboId(User user,Integer weiboId);
 
     /**
      * 评论点赞
+     * @param user user
      * @param commentId commentId
      * @return 评论点赞数
      */
-    Integer countDistinctByCommentId(Integer commentId);
+    Integer countDistinctByUserAndCommentId(User user,Integer commentId);
 
     /**
      * 回复点赞
+     * @param user user
      * @param replyId replyId
      * @return 回复点赞数
      */
-    Integer countDistinctByReplyId(Integer replyId);
+    Integer countDistinctByUserAndReplyId(User user,Integer replyId);
+
+    /**
+     * 是否存在
+     * @param user user
+     * @param weiboId weiboId
+     * @return true
+     */
+    Boolean existsByUserAndWeiboId(User user,Integer weiboId);
+
+    /**
+     * 是否存在
+     * @param user user
+     * @param commentId commentId
+     * @return true
+     */
+    Boolean existsByUserAndCommentId(User user,Integer commentId);
+
+    /**
+     * 是否存在
+     * @param user user
+     * @param replyId replyId
+     * @return true
+     */
+    Boolean existsByUserAndReplyId(User user,Integer replyId);
 
     /**
      * 删除
      * @param user user
      * @param commentId commentId
+     * @return 删除行数
      */
     @Modifying
     @Transactional(rollbackFor=Exception.class)
-    void deleteCommentByUserAndCommentId(User user,Integer commentId);
+    Integer deleteCommentByUserAndCommentId(User user,Integer commentId);
 
     /**
      * 删除
      * @param user user
      * @param weiboId weiboId
+     * @return 删除行数
      */
     @Modifying
     @Transactional(rollbackFor=Exception.class)
-    void deleteCommentByUserAndWeiboId(User user,Integer weiboId);
+    Integer deleteCommentByUserAndWeiboId(User user,Integer weiboId);
 
     /**
      * 删除
      * @param user user
      * @param replyId replyId
+     * @return 删除行数
      */
     @Modifying
     @Transactional(rollbackFor=Exception.class)
-    void deleteCommentByUserAndReplyId(User user,Integer replyId);
+    Integer deleteCommentByUserAndReplyId(User user,Integer replyId);
 
 }

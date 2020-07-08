@@ -71,14 +71,20 @@ public class WeiboController {
         User user = new User();
         user.setId(userId);
         Weibo weibo = new Weibo();
+        weibo.setId(null);
         weibo.setUser(user);
         weibo.setContent(content);
-        if (tag != null || source != null){
-            weibo.setTag(tag);
+        if (source != null){
             weibo.setSource(source);
         }
-        weiboService.sendWeibo(weibo);
-        return Result.success("成功发布微博");
+        if (tag != null){
+            weibo.setTag(tag);
+        }
+        return weiboService.sendWeibo(weibo);
+    }
 
+    @RequestMapping(value = "delWeibo",method = RequestMethod.POST)
+    Result delWeibo(@RequestParam("weiboId") @NotNull Integer weiboId) {
+        return weiboService.delWeibo(weiboId);
     }
 }

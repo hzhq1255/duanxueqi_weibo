@@ -20,9 +20,15 @@ public class UserService {
 
     public Result login(String name,String pwd){
         User user = userRepository.findUserByName(name);
-        if (user.getPwd().equals(pwd)){
-            return Result.success("登录成功");
+        try {
+            if (user != null && user.getPwd().equals(pwd)   ){
+                return Result.success("登录成功");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.error("登录失败");
         }
+
         return Result.error("登录失败");
     }
 

@@ -30,14 +30,14 @@ public class Comment {
     private Integer weiboId;
 //    @Column(name = "u_id")
 //    private Integer userId;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
     @JoinColumn(name = "u_id",referencedColumnName = "u_id")
     private User User;
     @Column(name = "c_content")
     private String content;
     @Column(name = "c_time")
     private Date sendTime;
-//    @OneToMany(targetEntity = Reply.class,cascade = CascadeType.ALL)
+//    @OneToMany(targetEntity = Reply.class,cascade = CascadeType.MERGE)
 //    @JoinColumn(name = "c_id",referencedColumnName = "c_id")
 //    private List<Reply> replyList;
 

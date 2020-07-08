@@ -1,11 +1,9 @@
 package com.hzhq.weibo.service;
 
 import com.hzhq.weibo.dto.WeiboDTO;
-import com.hzhq.weibo.entity.User;
 import com.hzhq.weibo.entity.Weibo;
 import com.hzhq.weibo.repository.WeiboInfoRepository;
 import com.hzhq.weibo.repository.WeiboRepository;
-import com.hzhq.weibo.util.EntityUtil;
 import com.hzhq.weibo.util.PageUtil;
 import com.hzhq.weibo.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 /**
  * @author: hzhq1255
@@ -32,28 +28,6 @@ public class WeiboService {
     @Autowired
     WeiboInfoRepository weiboInfoRepository;
 
-//    public Page<WeiboDTO> convertToPageDTO(List<Object[]> objectList,Pageable pageable){
-//        List<WeiboDTO> weiboDTOList = new ArrayList<>();
-//        for (Object[] objects : objectList) {
-//            if (objects.length == 0){
-//                continue;
-//            }
-//            WeiboDTO weibo = new WeiboDTO(
-//                    (Integer) objects[0],
-//                    (Integer) objects[1],
-//                    (String) objects[2],
-//                    (String) objects[3],
-//                    (String) objects[4],
-//                    (WeiboDTO) objects[5],
-//                    (Integer) objects[6],
-//                    (BigInteger) objects[7],
-//                    (BigInteger) objects[8]
-//            );
-//            weiboDTOList.add(weibo);
-//        }
-//        Page<WeiboDTO> weiboPage = PageUtil.listConvertToPage(weiboDTOList,pageable);
-//        return weiboPage;
-//    }
 
     public Result getAllWeibo(Integer userId, Pageable pageable) throws Exception {
         Page<WeiboDTO> weiboPage = weiboInfoRepository.selectAllWeibo(userId,pageable);
@@ -74,8 +48,28 @@ public class WeiboService {
     }
 
     public Result sendWeibo(Weibo weibo){
-        weiboRepository.save(weibo);
-        return Result.success("发布微博成功");
+        try {
+            weiboRepository.save(weibo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.error("发布失败");
+        }
+        return Result.success("成功发布微博");
+
+    }
+
+    public Result delWeibo(Integer weiboId){
+        int count = 0;
+        try{
+            count = weiboRepository.deleteWeiboById(weiboId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.error("删除失败");
+        }
+        if (count == 0){
+            return Result.error("删除失败");
+        }
+        return Result.success("成功删除"+count+"行");
     }
 
 
