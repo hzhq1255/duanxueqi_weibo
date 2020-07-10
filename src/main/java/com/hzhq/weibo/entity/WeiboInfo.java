@@ -59,6 +59,12 @@ public class WeiboInfo implements Serializable {
     private Date sendTime;
     @Column(name = "w_source")
     private Integer source;
+//    @OneToOne(targetEntity = Weibo.class,cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "w_source",referencedColumnName = "w_id")
+//    private Weibo source;
 
 
+    public WeiboInfo(Integer weiboId) {
+        this.weiboId = weiboId;
+    }
 }

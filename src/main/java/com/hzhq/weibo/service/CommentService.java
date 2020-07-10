@@ -1,7 +1,11 @@
 package com.hzhq.weibo.service;
 
 import com.hzhq.weibo.dto.CommentDTO;
+import com.hzhq.weibo.dto.UserCommentDTO;
+import com.hzhq.weibo.dto.WeiboDTO;
 import com.hzhq.weibo.entity.Comment;
+import com.hzhq.weibo.entity.Weibo;
+import com.hzhq.weibo.entity.WeiboInfo;
 import com.hzhq.weibo.repository.CommentRepository;
 import com.hzhq.weibo.util.PageUtil;
 import com.hzhq.weibo.util.Result;
@@ -9,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -35,8 +42,23 @@ public class CommentService {
     }
 
     public Result getAllCommentByUserId(Integer userId, Pageable pageable){
-        Page<CommentDTO> commentPage = commentRepository.selectAllCommentByUserId(userId,pageable);
-        Object data = PageUtil.getPageData(commentPage);
+        Page<Object[]> objectPage = commentRepository.selectAllCommentByUserId(userId,pageable);
+        List<UserCommentDTO> userCommentList = new ArrayList<>();
+        for (Object[] objects: objectPage.getContent()){
+            Comment comment = (Comment) objects[0];
+            WeiboInfo source = objects[1] == null ? null : (WeiboInfo) objects[1];
+            WeiboDTO weiboDTO = new WeiboDTO(comment.getWeibo(),source);
+            UserCommentDTO commentDTO = new UserCommentDTO(
+                    comment.getId(),
+                    comment.getUser().getId(),
+                    comment.getUser().getName(),
+                    comment.getContent(),
+                    comment.getSendTime(),
+                    weiboDTO);
+            userCommentList.add(commentDTO);
+        }
+//        Object data = PageUtil.getPageData(commentPage);
+        Object data = PageUtil.getPageData(PageUtil.listConvertToPage(userCommentList,pageable));
         return Result.success(data);
     }
 

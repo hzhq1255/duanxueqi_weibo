@@ -103,7 +103,7 @@ public class WeiboController {
         weibo.setContent(content);
         weibo.setSendTime(new Date());
         if (source != null){
-            weibo.setSource(source);
+            weibo.setSource(new Weibo(source));
         }
         if (tag != null){
             weibo.setTag(tag);

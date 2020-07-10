@@ -2,6 +2,8 @@ package com.hzhq.weibo.controller;
 
 import com.hzhq.weibo.entity.Comment;
 import com.hzhq.weibo.entity.User;
+import com.hzhq.weibo.entity.Weibo;
+import com.hzhq.weibo.entity.WeiboInfo;
 import com.hzhq.weibo.service.CommentService;
 import com.hzhq.weibo.util.PageUtil;
 import com.hzhq.weibo.util.Result;
@@ -61,7 +63,7 @@ public class CommentController {
         User user = new User();
         user.setId(userId);
         comment.setUser(user);
-        comment.setWeiboId(weiboId);
+        comment.setWeibo(new WeiboInfo(weiboId));
         comment.setContent(content);
         comment.setSendTime(new Date());
         return commentService.sendComment(comment);

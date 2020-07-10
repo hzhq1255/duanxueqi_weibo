@@ -33,8 +33,11 @@ public class Weibo {
     private User user;
     @Column(name = "w_content")
     private String content;
-    @Column(name = "w_source")
-    private Integer source;
+    @OneToOne(targetEntity = Weibo.class,cascade = CascadeType.MERGE)
+    @JoinColumn(name = "w_source",referencedColumnName = "w_id")
+    private Weibo source;
+//    @Column(name = "w_source")
+//    private Integer source;
     @Column(name = "w_time")
     private Date sendTime;
     @Column(name = "tag")
@@ -46,4 +49,7 @@ public class Weibo {
 //    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
 //    private List<Like> likeList;
 
+    public Weibo(Integer weiboId){
+        this.id = weiboId;
+    }
 }

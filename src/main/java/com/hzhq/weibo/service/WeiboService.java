@@ -69,13 +69,15 @@ public class WeiboService {
 
     public Result delWeibo(Integer weiboId){
         int count = 0;
+        Weibo source = new Weibo();
+        source.setId(0);
         try{
             List<Weibo> weiboList =
                     weiboRepository.findAllBySource(weiboId).stream().map( w-> new Weibo(
                     w.getId(),
                     w.getUser(),
                     w.getContent(),
-                    0,
+                    source,
                     w.getSendTime(),
                     w.getTag()
             )).collect(Collectors.toList());

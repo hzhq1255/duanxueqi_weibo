@@ -23,9 +23,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_id")
     private Integer id;
-    @OneToOne(targetEntity = Weibo.class,cascade = CascadeType.MERGE)
+    @OneToOne(targetEntity = WeiboInfo.class,cascade = CascadeType.MERGE)
     @JoinColumn(name = "w_id",referencedColumnName = "w_id")
-    private Weibo weibo;
+    private WeiboInfo weibo;
 //    @Column(name = "u_id")
 //    private Integer userId;
     @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
@@ -35,8 +35,10 @@ public class Comment {
     private String content;
     @Column(name = "c_time")
     private Date sendTime;
-    @OneToMany(targetEntity = Reply.class,cascade = CascadeType.MERGE)
-    @JoinColumn(name = "c_id",referencedColumnName = "c_id")
-    private List<Reply> replyList;
+//    @OneToMany(targetEntity = Reply.class,cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "c_id",referencedColumnName = "c_id")
+//    private List<Reply> replyList;
+
+
 
 }

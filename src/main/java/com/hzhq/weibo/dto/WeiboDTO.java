@@ -51,4 +51,18 @@ public class WeiboDTO{
         this.sendTime =sendTime;
         this.source = source == null ? null : new WeiboInfo(source,sourceUserId,sourceName,sourcePic,sourceContent,sourceTag,sourceLikeCount,sourceCommentCount,sourceSendTime,null);
     }
+
+    public WeiboDTO(WeiboInfo weibo, WeiboInfo source){
+        this.weiboId = weibo.getWeiboId();
+        this.userId = weibo.getUserId();
+        this.name = weibo.getName();
+        this.pic = "".equals(weibo.getPic()) ? null : weibo.getPic();
+        this.tag = weibo.getTag();
+        this.content = weibo.getContent();
+        this.isLiked = null;
+        this.likeCount = weibo.getLikeCount();
+        this.commentCount = weibo.getCommentCount();
+        this.sendTime = weibo.getSendTime();
+        this.source = source;
+    }
 }

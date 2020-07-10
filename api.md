@@ -105,6 +105,20 @@ success error
 
 **返回**
 
+### /getSearchWeibo
+
+**method** GET
+
+| 参数        | 描述             |      |
+| ----------- | ---------------- | ---- |
+| userId      | 当前登录的用户id |      |
+| keyword    |                  |      |
+| currentPage |                  |      |
+| pageSize    |                  |      |
+
+**返回**
+
+
 同上
 
 ### /sendWeibo
@@ -140,7 +154,7 @@ error or success
 
 ## 评论
 
-### /getAllCommnetByWeiboId
+### /getAllCommentByWeiboId
 
 **method** GET
 
