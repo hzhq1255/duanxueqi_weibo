@@ -2,6 +2,7 @@ package com.hzhq.weibo.service;
 
 import com.hzhq.weibo.dto.WeiboDTO;
 import com.hzhq.weibo.entity.Weibo;
+import com.hzhq.weibo.entity.WeiboInfo;
 import com.hzhq.weibo.repository.WeiboInfoRepository;
 import com.hzhq.weibo.repository.WeiboRepository;
 import com.hzhq.weibo.util.PageUtil;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author: hzhq1255
@@ -67,6 +70,17 @@ public class WeiboService {
     public Result delWeibo(Integer weiboId){
         int count = 0;
         try{
+            List<Weibo> weiboList =
+                    weiboRepository.findAllBySource(weiboId).stream().map( w-> new Weibo(
+                    w.getId(),
+                    w.getUser(),
+                    w.getContent(),
+                    0,
+                    w.getSendTime(),
+                    w.getTag()
+            )).collect(Collectors.toList());
+            weiboRepository.saveAll(weiboList);
+            System.out.println(weiboList.toString());
             count = weiboRepository.deleteWeiboById(weiboId);
         }catch (Exception e){
             e.printStackTrace();
@@ -76,6 +90,12 @@ public class WeiboService {
             return Result.error("删除失败");
         }
         return Result.success("成功删除"+count+"行");
+    }
+
+    public Result searchWeibo(Integer userId, String keyword, Pageable pageable){
+       Page<WeiboDTO> weiboPage = weiboInfoRepository.searchWeibo(userId, keyword, pageable);
+       Object data = PageUtil.getPageData(weiboPage);
+       return Result.success(data);
     }
 
 

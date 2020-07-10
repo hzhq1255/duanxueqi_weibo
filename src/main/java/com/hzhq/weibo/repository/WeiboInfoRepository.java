@@ -63,6 +63,40 @@ public interface WeiboInfoRepository extends JpaRepository<WeiboInfo,Integer> {
             "order by w.sendTime desc ")
     Page<WeiboDTO> selectAllWeibo(@Param("userId") Integer userId, Pageable pageable);
 
+    /**
+     * 查询微博
+     * @param keyword
+     * @param userId
+     * @param pageable
+     * @return
+     */
+    @Query(" select new com.hzhq.weibo.dto.WeiboDTO( " +
+            "w.weiboId," +
+            "w.userId," +
+            "w.name," +
+            "w.pic," +
+            "w.tag," +
+            "w.content," +
+            "l.status," +
+            "w.likeCount," +
+            "w.commentCount," +
+            "w.sendTime," +
+            "s.weiboId," +
+            "s.userId," +
+            "s.name," +
+            "s.pic," +
+            "s.tag," +
+            "s.content," +
+            "s.likeCount," +
+            "s.commentCount," +
+            "s.sendTime" +
+            ") " +
+            "from WeiboInfo w " +
+            "left join WeiboInfo s ON w.source = s.weiboId " +
+            "left join Like l on w.weiboId = l.weiboId and l.user.id=:userId " +
+            "where w.content like concat('%',:keyword,'%') " +
+            "order by w.sendTime desc ")
+    Page<WeiboDTO> searchWeibo(@Param("userId") Integer userId, @Param("keyword") String keyword, Pageable pageable);
 
     /**
      * 获取处理过的微博信息

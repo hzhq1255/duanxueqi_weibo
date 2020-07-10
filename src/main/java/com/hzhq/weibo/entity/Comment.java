@@ -1,12 +1,9 @@
 package com.hzhq.weibo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -26,19 +23,20 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_id")
     private Integer id;
-    @Column(name = "w_id")
-    private Integer weiboId;
+    @OneToOne(targetEntity = Weibo.class,cascade = CascadeType.MERGE)
+    @JoinColumn(name = "w_id",referencedColumnName = "w_id")
+    private Weibo weibo;
 //    @Column(name = "u_id")
 //    private Integer userId;
     @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
     @JoinColumn(name = "u_id",referencedColumnName = "u_id")
-    private User User;
+    private User user;
     @Column(name = "c_content")
     private String content;
     @Column(name = "c_time")
     private Date sendTime;
-//    @OneToMany(targetEntity = Reply.class,cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "c_id",referencedColumnName = "c_id")
-//    private List<Reply> replyList;
+    @OneToMany(targetEntity = Reply.class,cascade = CascadeType.MERGE)
+    @JoinColumn(name = "c_id",referencedColumnName = "c_id")
+    private List<Reply> replyList;
 
 }

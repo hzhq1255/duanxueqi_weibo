@@ -1,7 +1,9 @@
 package com.hzhq.weibo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,6 +18,8 @@ import java.util.Date;
  */
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "weibo")
 @JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 public class Weibo {
@@ -27,8 +31,6 @@ public class Weibo {
     @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
     @JoinColumn(name = "u_id",referencedColumnName = "u_id")
     private User user;
-//    @Column(name = "u_id")
-//    private Integer userId;
     @Column(name = "w_content")
     private String content;
     @Column(name = "w_source")

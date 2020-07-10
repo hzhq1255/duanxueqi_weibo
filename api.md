@@ -154,7 +154,7 @@ error or success
 
 评论列表
 
-### /getAllCommnetByUserId
+### /getAllCommentByUserId
 
 **method** GET
 

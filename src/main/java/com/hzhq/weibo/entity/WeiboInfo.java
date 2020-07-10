@@ -56,11 +56,9 @@ public class WeiboInfo implements Serializable {
     @Column(name = "comment_count")
     private Integer commentCount;
     @Column(name = "w_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date sendTime;
     @Column(name = "w_source")
     private Integer source;
-
 
 
 }

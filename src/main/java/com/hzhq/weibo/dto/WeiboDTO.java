@@ -1,5 +1,6 @@
 package com.hzhq.weibo.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hzhq.weibo.entity.WeiboInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,12 +32,13 @@ public class WeiboDTO{
     private Integer isLiked;
     private Integer likeCount;
     private Integer commentCount;
+    @JsonFormat
     private Date sendTime;
     private WeiboInfo source;
 
 
-    public WeiboDTO(Integer weiboId, Integer userId, String name,String pic, Integer tag, String content, Integer isLiked, Integer likeCount, Integer commentCount, Date sendTime,
-                    Integer source, Integer sourceUserId,String sourceName,String sourcePic,Integer sourceTag,String sourceContent,Integer sourceLikeCount,Integer sourceCommentCount, Date sourceSendTime) {
+    public WeiboDTO(Integer weiboId, Integer userId, String name, String pic, Integer tag, String content, Integer isLiked, Integer likeCount, Integer commentCount, Date sendTime,
+                    Integer source, Integer sourceUserId, String sourceName, String sourcePic, Integer sourceTag, String sourceContent, Integer sourceLikeCount, Integer sourceCommentCount, Date sourceSendTime) {
         this.weiboId = weiboId;
         this.userId = userId;
         this.name = name;
@@ -47,6 +49,6 @@ public class WeiboDTO{
         this.likeCount = likeCount;
         this.commentCount = commentCount;
         this.sendTime =sendTime;
-        this.source = source == null ? null : new WeiboInfo(source,sourceUserId,sourceName,sourcePic,sourceContent,sourceTag,sourceLikeCount,sourceCommentCount,sendTime,null);
+        this.source = source == null ? null : new WeiboInfo(source,sourceUserId,sourceName,sourcePic,sourceContent,sourceTag,sourceLikeCount,sourceCommentCount,sourceSendTime,null);
     }
 }

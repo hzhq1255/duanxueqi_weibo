@@ -54,28 +54,33 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
      */
     @Query(" select new com.hzhq.weibo.dto.CommentDTO(" +
             "c.id," +
-            "c.weiboId," +
-            "c.User.id," +
-            "c.User.name," +
+            "c.weibo.id," +
+            "c.user.id," +
+            "c.user.name," +
             "c.content," +
             "c.sendTime" +
             ") " +
             "from Comment c " +
-            "where c.weiboId=:weiboId " +
+            "where c.weibo.id=:weiboId " +
             "order by c.sendTime desc ")
     Page<CommentDTO> selectAllCommentByWeiboId(@Param("weiboId") Integer weiboId,Pageable pageable);
 
-
+    /**
+     *
+     * @param userId
+     * @param pageable
+     * @return
+     */
     @Query(" select new com.hzhq.weibo.dto.CommentDTO(" +
             "c.id," +
-            "c.weiboId," +
-            "c.User.id," +
-            "c.User.name," +
+            "c.weibo.id," +
+            "c.user.id," +
+            "c.user.name," +
             "c.content," +
             "c.sendTime" +
             ") " +
             "from Comment c " +
-            "where c.User.id=:userId  " +
+            "where c.user.id=:userId  " +
             "order by c.sendTime desc ")
     Page<CommentDTO> selectAllCommentByUserId(@Param("userId") Integer userId,Pageable pageable);
 

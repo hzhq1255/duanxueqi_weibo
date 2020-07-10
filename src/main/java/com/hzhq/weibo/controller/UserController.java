@@ -46,10 +46,10 @@ public class UserController {
     public Result reg(@RequestParam("name") @NotNull String name,
                       @RequestParam("pwd1") @NotNull String pwd1,
                       @RequestParam("pwd2") @NotNull String pwd2,
-                      @RequestParam(value = "pic",required = false) @NotNull String pic,
-                      @RequestParam(value = "gender",required = false) @NotNull String gender,
-                      @RequestParam(value = "des",required = false) @NotNull String des,
-                      @RequestParam(value = "birth",required = false) @NotNull Timestamp birth){
+                      @RequestParam(value = "gender",required = false)  String gender,
+                      @RequestParam(value = "pic",required = false)  String pic,
+                      @RequestParam(value = "des",required = false)  String des,
+                      @RequestParam(value = "birth",required = false)  String birth){
         if ("".equals(name) || "".equals(pwd1) || "".equals(pwd2)){
             return Result.error("关键字段名字,密码1，密码2为空");
         }
@@ -62,8 +62,18 @@ public class UserController {
             gender = null;
         }
         Timestamp regTime = new Timestamp((new Date()).getTime());
-        User user = new User(null,name,pwd1,pic,gender,des,regTime,birth);
+        String currentTime = String.valueOf(System.currentTimeMillis());
+        int len = birth.length();
+        int timeLen = currentTime.length();
+        StringBuilder builder = new StringBuilder(birth);
+        for (int i = len; i < timeLen;i++){
+            builder.append(0);
+        }
+        Timestamp birthTime = new Timestamp(Long.parseLong(builder.toString()));
+        System.out.println(birthTime);
+        User user = new User(null,name,pwd1,pic,gender,des,regTime,birthTime);
         return userService.reg(user);
+        //return null;
     }
 
     @RequestMapping(value = "/getUserInfo",method = {RequestMethod.GET})

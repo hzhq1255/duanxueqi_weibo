@@ -12,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author: hzhq1255
  * @mail: hzhq1255@163.com
@@ -29,6 +31,12 @@ public interface WeiboRepository extends JpaRepository<Weibo,Integer> {
     @Query("select w from Weibo w order by w.sendTime desc ")
     Page<Weibo> selectAll(Pageable pageable);
 
+    /**
+     * 找到转发的微博
+     * @param source
+     * @return
+     */
+    List<Weibo> findAllBySource(Integer source);
 
 
     /**
