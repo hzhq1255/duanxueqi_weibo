@@ -60,6 +60,7 @@ public interface WeiboInfoRepository extends JpaRepository<WeiboInfo,Integer> {
             "from WeiboInfo w " +
             "left join WeiboInfo s ON w.source = s.weiboId " +
             "left join Like l on w.weiboId = l.weiboId and l.user.id=:userId " +
+            "where w.weiboId <> 0 " +
             "order by w.sendTime desc ")
     Page<WeiboDTO> selectAllWeibo(@Param("userId") Integer userId, Pageable pageable);
 
@@ -94,7 +95,7 @@ public interface WeiboInfoRepository extends JpaRepository<WeiboInfo,Integer> {
             "from WeiboInfo w " +
             "left join WeiboInfo s ON w.source = s.weiboId " +
             "left join Like l on w.weiboId = l.weiboId and l.user.id=:userId " +
-            "where w.content like concat('%',:keyword,'%') " +
+            "where w.weiboId <> 0 and w.content like concat('%',:keyword,'%') " +
             "order by w.sendTime desc ")
     Page<WeiboDTO> searchWeibo(@Param("userId") Integer userId, @Param("keyword") String keyword, Pageable pageable);
 
@@ -128,7 +129,7 @@ public interface WeiboInfoRepository extends JpaRepository<WeiboInfo,Integer> {
             "from WeiboInfo w " +
             "left join WeiboInfo s ON w.source = s.weiboId " +
             "left join Like l on w.weiboId = l.weiboId and l.user.id=:userId " +
-            "where w.userId=:userId " +
+            "where w.weiboId <> 0 and w.userId=:userId " +
             "order by w.sendTime desc ")
     Page<WeiboDTO> selectAllWeiboByUser(@Param("userId") Integer userId, Pageable pageable);
 
@@ -163,7 +164,7 @@ public interface WeiboInfoRepository extends JpaRepository<WeiboInfo,Integer> {
             "from WeiboInfo w " +
             "left join WeiboInfo s ON w.source = s.weiboId " +
             "left join Like l on w.weiboId = l.weiboId and l.user.id=:loginId " +
-            "where w.userId=:userId " +
+            "where w.weiboId <> 0 and w.userId=:userId " +
             "order by w.sendTime desc ")
     Page<WeiboDTO> selectAllWeiboByUserAndLoginUser(@Param("loginId") Integer loginId,@Param("userId") Integer userId, Pageable pageable);
 
@@ -197,7 +198,7 @@ public interface WeiboInfoRepository extends JpaRepository<WeiboInfo,Integer> {
             "from WeiboInfo w " +
             "left join WeiboInfo s ON w.source = s.weiboId " +
             "left join Like l on w.weiboId = l.weiboId and l.user.id=:userId " +
-            "where l.user.id=:userId and l.status = 1" +
+            "where w.weiboId <> 0 and l.user.id=:userId and l.status = 1" +
             "order by w.sendTime desc ")
     Page<WeiboDTO> selectAllLikedWeiboByUser(@Param("userId") Integer userId, Pageable pageable);
 

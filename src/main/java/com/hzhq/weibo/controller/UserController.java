@@ -62,14 +62,22 @@ public class UserController {
             gender = null;
         }
         Timestamp regTime = new Timestamp((new Date()).getTime());
-        String currentTime = String.valueOf(System.currentTimeMillis());
-        int len = birth.length();
-        int timeLen = currentTime.length();
-        StringBuilder builder = new StringBuilder(birth);
-        for (int i = len; i < timeLen;i++){
-            builder.append(0);
+        Timestamp birthTime =  null;
+        if (birth != null){
+            try {
+                String currentTime = String.valueOf(System.currentTimeMillis());
+                int len = birth.length();
+                int timeLen = currentTime.length();
+                StringBuilder builder = new StringBuilder(birth);
+                for (int i = len; i < timeLen;i++){
+                    builder.append(0);
+                }
+                birthTime = new Timestamp(Long.parseLong(builder.toString()));
+            }catch (Exception e){
+                e.printStackTrace();
+                return Result.error("传入不是标准时间戳格式");
+            }
         }
-        Timestamp birthTime = new Timestamp(Long.parseLong(builder.toString()));
         System.out.println(birthTime);
         User user = new User(null,name,pwd1,pic,gender,des,regTime,birthTime);
         return userService.reg(user);

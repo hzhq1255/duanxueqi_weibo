@@ -73,23 +73,23 @@ public class WeiboService {
         source.setId(0);
         try{
             List<Weibo> weiboList =
-                    weiboRepository.findAllBySource(weiboId).stream().map( w-> new Weibo(
-                    w.getId(),
-                    w.getUser(),
-                    w.getContent(),
-                    source,
-                    w.getSendTime(),
-                    w.getTag()
-            )).collect(Collectors.toList());
+                    weiboRepository.findAllBySource(new Weibo(weiboId)).stream().map( w-> new Weibo(
+                            w.getId(),
+                            w.getUser(),
+                            w.getContent(),
+                            source,
+                            w.getSendTime(),
+                            w.getTag()
+                    )).collect(Collectors.toList());
             weiboRepository.saveAll(weiboList);
-            System.out.println(weiboList.toString());
             count = weiboRepository.deleteWeiboById(weiboId);
+            System.out.println(weiboList.toString());
         }catch (Exception e){
             e.printStackTrace();
             return Result.error("删除失败");
         }
         if (count == 0){
-            return Result.error("删除失败");
+            return Result.error("删除失败或没有这条微博");
         }
         return Result.success("成功删除"+count+"行");
     }

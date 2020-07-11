@@ -36,7 +36,8 @@ public interface WeiboRepository extends JpaRepository<Weibo,Integer> {
      * @param source
      * @return
      */
-    List<Weibo> findAllBySource(Integer source);
+    List<Weibo> findAllBySource(Weibo source);
+
 
 
     /**
